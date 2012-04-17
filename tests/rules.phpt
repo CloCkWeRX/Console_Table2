@@ -11,10 +11,10 @@ if (file_exists(dirname(__FILE__) . '/../Table2.php')) {
 
 $data = array(
     array('one', 'two'),
-    CONSOLE_TABLE_HORIZONTAL_RULE,
+    Console_Table2::HORIZONTAL_RULE,
     array('three', 'four'),
-    CONSOLE_TABLE_HORIZONTAL_RULE,
-    CONSOLE_TABLE_HORIZONTAL_RULE,
+    Console_Table2::HORIZONTAL_RULE,
+    Console_Table2::HORIZONTAL_RULE,
     array('five', 'six'),
     array('seven', 'eight'),
 );
@@ -26,14 +26,14 @@ $table->addSeparator();
 echo $table->getTable();
 echo "=========================\n";
 
-$table = new Console_Table2(CONSOLE_TABLE_ALIGN_LEFT, '');
+$table = new Console_Table2(Console_Table2::ALIGN_LEFT, '');
 $table->setHeaders(array('foo', 'bar'));
 $table->addData($data);
 $table->addSeparator();
 echo $table->getTable();
 echo "=========================\n";
 
-$table = new Console_Table2(CONSOLE_TABLE_ALIGN_LEFT, '#', 0);
+$table = new Console_Table2(Console_Table2::ALIGN_LEFT, '#', 0);
 $table->setHeaders(array('foo', 'bar'));
 $table->addData($data);
 $table->addSeparator();

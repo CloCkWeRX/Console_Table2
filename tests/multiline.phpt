@@ -22,7 +22,7 @@ $table->setHeaders(array("h1\nmultiline", 'h2', "h3", 'h4'));
 $table->addData($data);
 echo $table->getTable();
 
-echo Console_Table::fromArray(array('one line header'),
+echo Console_Table2::fromArray(array('one line header'),
                               array(array("multiple\nlines"),
                                     array('one line')));
 
