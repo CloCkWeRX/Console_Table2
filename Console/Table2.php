@@ -2,7 +2,7 @@
 /**
  * Utility for printing tables from commandline scripts.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * All rights reserved.
  *
@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Console
- * @package   Console_Table
+ * @package   Console_Table2
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2002-2005 Richard Heyes
@@ -40,23 +40,26 @@
  * @link      http://pear.php.net/package/Console_Table
  */
 
-define('CONSOLE_TABLE_HORIZONTAL_RULE', 1);
-define('CONSOLE_TABLE_ALIGN_LEFT', -1);
-define('CONSOLE_TABLE_ALIGN_CENTER', 0);
-define('CONSOLE_TABLE_ALIGN_RIGHT', 1);
-define('CONSOLE_TABLE_BORDER_ASCII', -1);
+
 
 /**
  * The main class.
  *
  * @category Console
- * @package  Console_Table
+ * @package  Console_Table2
  * @author   Jan Schneider <jan@horde.org>
  * @license  http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
  * @link     http://pear.php.net/package/Console_Table
  */
-class Console_Table
+class Console_Table2
 {
+
+    const HORIZONTAL_RULE = 1;
+    const ALIGN_LEFT = -1;
+    const ALIGN_CENTER = 0;
+    const ALIGN_RIGHT = 1;
+    const BORDER_ASCII = -1;
+
     /**
      * The table headers.
      *
@@ -146,7 +149,7 @@ class Console_Table
      *
      * @var string
      */
-    var $_border = CONSOLE_TABLE_BORDER_ASCII;
+    var $_border = Console_Table2::BORDER_ASCII;
 
     /**
      * Whether the data has ANSI colors.
@@ -159,18 +162,18 @@ class Console_Table
      * Constructor.
      *
      * @param integer $align   Default alignment. One of
-     *                         CONSOLE_TABLE_ALIGN_LEFT,
-     *                         CONSOLE_TABLE_ALIGN_CENTER or
-     *                         CONSOLE_TABLE_ALIGN_RIGHT.
+     *                         Console_Table2::ALIGN_LEFT,
+     *                         Console_Table2::ALIGN_CENTER or
+     *                         Console_Table2::ALIGN_RIGHT.
      * @param string  $border  The character used for table borders or
-     *                         CONSOLE_TABLE_BORDER_ASCII.
+     *                         Console_Table2::BORDER_ASCII.
      * @param integer $padding How many spaces to use to pad the table.
      * @param string  $charset A charset supported by the mbstring PHP
      *                         extension.
      * @param boolean $color   Whether the data contains ansi color codes.
      */
-    function Console_Table($align = CONSOLE_TABLE_ALIGN_LEFT,
-                           $border = CONSOLE_TABLE_BORDER_ASCII, $padding = 1,
+    public function __construct($align = Console_Table2::ALIGN_LEFT,
+                           $border = Console_Table2::BORDER_ASCII, $padding = 1,
                            $charset = null, $color = false)
     {
         $this->_defaultAlign = $align;
@@ -205,7 +208,7 @@ class Console_Table
             return false;
         }
 
-        $table = new Console_Table();
+        $table = new Console_Table2();
         $table->setHeaders($headers);
 
         foreach ($data as $row) {
@@ -254,19 +257,19 @@ class Console_Table
      *
      * @param integer $col_id The column number.
      * @param integer $align  Alignment to set for this column. One of
-     *                        CONSOLE_TABLE_ALIGN_LEFT
-     *                        CONSOLE_TABLE_ALIGN_CENTER
-     *                        CONSOLE_TABLE_ALIGN_RIGHT.
+     *                        Console_Table2::ALIGN_LEFT
+     *                        Console_Table2::ALIGN_CENTER
+     *                        Console_Table2::ALIGN_RIGHT.
      *
      * @return void
      */
-    function setAlign($col_id, $align = CONSOLE_TABLE_ALIGN_LEFT)
+    function setAlign($col_id, $align = Console_Table2::ALIGN_LEFT)
     {
         switch ($align) {
-        case CONSOLE_TABLE_ALIGN_CENTER:
+        case Console_Table2::ALIGN_CENTER:
             $pad = STR_PAD_BOTH;
             break;
-        case CONSOLE_TABLE_ALIGN_RIGHT:
+        case Console_Table2::ALIGN_RIGHT:
             $pad = STR_PAD_LEFT;
             break;
         default:
@@ -369,8 +372,8 @@ class Console_Table
     function addData($data, $col_id = 0, $row_id = 0)
     {
         foreach ($data as $row) {
-            if ($row === CONSOLE_TABLE_HORIZONTAL_RULE) {
-                $this->_data[$row_id] = CONSOLE_TABLE_HORIZONTAL_RULE;
+            if ($row === Console_Table2::HORIZONTAL_RULE) {
+                $this->_data[$row_id] = Console_Table2::HORIZONTAL_RULE;
                 $row_id++;
                 continue;
             }
@@ -391,7 +394,7 @@ class Console_Table
      */
     function addSeparator()
     {
-        $this->_data[] = CONSOLE_TABLE_HORIZONTAL_RULE;
+        $this->_data[] = Console_Table2::HORIZONTAL_RULE;
     }
 
     /**
@@ -450,7 +453,7 @@ class Console_Table
             $callback = $filter[1];
 
             foreach ($this->_data as $row_id => $row_data) {
-                if ($row_data !== CONSOLE_TABLE_HORIZONTAL_RULE) {
+                if ($row_data !== Console_Table2::HORIZONTAL_RULE) {
                     $this->_data[$row_id][$column] =
                         call_user_func($callback, $row_data[$column]);
                 }
@@ -473,14 +476,14 @@ class Console_Table
             for ($j = 0; $j < $this->_max_cols; $j++) {
                 if (!isset($this->_data[$i][$j]) &&
                     (!isset($this->_data[$i]) ||
-                     $this->_data[$i] !== CONSOLE_TABLE_HORIZONTAL_RULE)) {
+                     $this->_data[$i] !== Console_Table2::HORIZONTAL_RULE)) {
                     $this->_data[$i][$j] = '';
                 }
 
             }
             $this->_calculateRowHeight($i, $this->_data[$i]);
 
-            if ($this->_data[$i] !== CONSOLE_TABLE_HORIZONTAL_RULE) {
+            if ($this->_data[$i] !== Console_Table2::HORIZONTAL_RULE) {
                  ksort($this->_data[$i]);
             }
 
@@ -564,7 +567,7 @@ class Console_Table
             return '';
         }
 
-        $rule      = $this->_border == CONSOLE_TABLE_BORDER_ASCII
+        $rule      = $this->_border == Console_Table2::BORDER_ASCII
             ? '|'
             : $this->_border;
         $separator = $this->_getSeparator();
@@ -572,7 +575,7 @@ class Console_Table
         $return = array();
         for ($i = 0; $i < count($this->_data); $i++) {
             for ($j = 0; $j < count($this->_data[$i]); $j++) {
-                if ($this->_data[$i] !== CONSOLE_TABLE_HORIZONTAL_RULE &&
+                if ($this->_data[$i] !== Console_Table2::HORIZONTAL_RULE &&
                     $this->_strlen($this->_data[$i][$j]) <
                     $this->_cell_lengths[$j]) {
                     $this->_data[$i][$j] = $this->_strpad($this->_data[$i][$j],
@@ -582,7 +585,7 @@ class Console_Table
                 }
             }
 
-            if ($this->_data[$i] !== CONSOLE_TABLE_HORIZONTAL_RULE) {
+            if ($this->_data[$i] !== Console_Table2::HORIZONTAL_RULE) {
                 $row_begin    = $rule . str_repeat(' ', $this->_padding);
                 $row_end      = str_repeat(' ', $this->_padding) . $rule;
                 $implode_char = str_repeat(' ', $this->_padding) . $rule
@@ -620,7 +623,7 @@ class Console_Table
             return;
         }
 
-        if ($this->_border == CONSOLE_TABLE_BORDER_ASCII) {
+        if ($this->_border == Console_Table2::BORDER_ASCII) {
             $rule = '-';
             $sect = '+';
         } else {
@@ -669,7 +672,7 @@ class Console_Table
             }
         }
 
-        $rule         = $this->_border == CONSOLE_TABLE_BORDER_ASCII
+        $rule         = $this->_border == Console_Table2::BORDER_ASCII
             ? '|'
             : $this->_border;
         $row_begin    = $rule . str_repeat(' ', $this->_padding);
@@ -707,10 +710,10 @@ class Console_Table
         $this->_max_rows = end($keys) + 1;
 
         switch ($this->_defaultAlign) {
-        case CONSOLE_TABLE_ALIGN_CENTER:
+        case Console_Table2::ALIGN_CENTER:
             $pad = STR_PAD_BOTH;
             break;
-        case CONSOLE_TABLE_ALIGN_RIGHT:
+        case Console_Table2::ALIGN_RIGHT:
             $pad = STR_PAD_LEFT;
             break;
         default:
@@ -757,7 +760,7 @@ class Console_Table
         }
 
         // Do not process horizontal rule rows.
-        if ($row === CONSOLE_TABLE_HORIZONTAL_RULE) {
+        if ($row === Console_Table2::HORIZONTAL_RULE) {
             return;
         }
 

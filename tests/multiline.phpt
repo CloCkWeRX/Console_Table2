@@ -3,10 +3,10 @@ Multiline table cells
 --FILE--
 <?php
 
-if (file_exists(dirname(__FILE__) . '/../Table.php')) {
-    require_once dirname(__FILE__) . '/../Table.php';
+if (file_exists(dirname(__FILE__) . '/../Table2.php')) {
+    require_once dirname(__FILE__) . '/../Table2.php';
 } else {
-    require_once 'Console/Table.php';
+    require_once 'Console/Table2.php';
 }
 
 $data = array(
@@ -17,7 +17,7 @@ $data = array(
     array('r5col1', 'r5col2', "r5col3", 'r5col4'),
 );
 
-$table = new Console_Table();
+$table = new Console_Table2();
 $table->setHeaders(array("h1\nmultiline", 'h2', "h3", 'h4'));
 $table->addData($data);
 echo $table->getTable();

@@ -5,14 +5,14 @@ Data with ANSI color codes
 --FILE--
 <?php
 
-if (file_exists(dirname(__FILE__) . '/../Table.php')) {
-    require_once dirname(__FILE__) . '/../Table.php';
+if (file_exists(dirname(__FILE__) . '/../Table2.php')) {
+    require_once dirname(__FILE__) . '/../Table2.php';
 } else {
-    require_once 'Console/Table.php';
+    require_once 'Console/Table2.php';
 }
 require_once 'Console/Color.php';
 
-$table = new Console_Table(CONSOLE_TABLE_ALIGN_LEFT, CONSOLE_TABLE_BORDER_ASCII, 1, null, true);
+$table = new Console_Table2(CONSOLE_TABLE_ALIGN_LEFT, CONSOLE_TABLE_BORDER_ASCII, 1, null, true);
 $table->setHeaders(array('foo', 'bar'));
 $table->addRow(array('baz', Console_Color::convert("%bblue%n")));
 
