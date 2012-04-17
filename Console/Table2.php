@@ -784,7 +784,9 @@ class Console_Table2
 
         // Strip ANSI color codes if requested.
         if ($this->_ansiColor) {
-            $str = Console_Color::strip($str);
+            /** @todo Shift up to constructor */
+            $color = new Console_Color2();
+            $str = $color->strip($str);
         }
 
         // Cache expensive function_exists() calls.
