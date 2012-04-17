@@ -12,7 +12,7 @@ if (file_exists(dirname(__FILE__) . '/../Table2.php')) {
 $data = array(
     array('one', 'two'),
     array('three', 'four'),
-    CONSOLE_TABLE_HORIZONTAL_RULE,
+    Console_Table2::HORIZONTAL_RULE,
     array('five', 'six'),
     array('seven', 'eight'),
 );
