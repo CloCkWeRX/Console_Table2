@@ -27,15 +27,15 @@ Please report all new issues via the PEAR bug tracker.
 If this package is marked as unmaintained and you have fixes, please submit your pull requests and start discussion on the pear-qa mailing list.
 
 To test, run either
-$ phpunit tests/
+<pre>$ phpunit tests/</pre>
   or
-$ pear run-tests -r
+<pre>$ pear run-tests -r</pre>
 
 To build, simply
-$ pear package
+<pre>$ pear package</pre>
 
 To install from scratch
-$ pear install package.xml
+<pre>$ pear install package.xml</pre>
 
 To upgrade
-$ pear upgrade -f package.xml
+<pre>$ pear upgrade -f package.xml</pre>
