@@ -5,18 +5,20 @@ This package is http://pear.php.net/package/Console_Table2
  * Swap Console_Table to Console_Table2, require_once 'Console/Table.php' =>  require_once 'Console/Table2.php'
  * Instead of being a boolean for $color, simply instantiate a new Console_Color2 or use the appropriate setter
 
-	require_once 'Console/Table2.php';
-	require_once 'Console/Color2.php';
+Usage example:
+<pre>
+require_once 'Console/Table2.php';
+require_once 'Console/Color2.php';
 
-	$color = new Console_Color2();
+$color = new Console_Color2();
 
-	$table = new Console_Table2(Console_Table2::ALIGN_LEFT, Console_Table2::BORDER_ASCII, 1);
-	$table->setColor($color);
-	$table->setHeaders(array('foo', 'bar'));
-	$table->addRow(array('baz', $color->convert("%bblue%n")));
+$table = new Console_Table2(Console_Table2::ALIGN_LEFT, Console_Table2::BORDER_ASCII, 1);
+$table->setColor($color);
+$table->setHeaders(array('foo', 'bar'));
+$table->addRow(array('baz', $color->convert("%bblue%n")));
 
-	echo $table->getTable();
-
+echo $table->getTable();
+</pre>
 ## Building 
 
 
